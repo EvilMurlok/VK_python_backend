@@ -13,16 +13,10 @@ class TestTicTacToeGame(unittest.TestCase):
     def setUp(self):
         self.file_with_test1 = open('test_data_directory/test_data1.txt', 'r')
         self.file_with_test1.readline()  # there is the service first line in the file with test data
-        self.tic_tac_toe3 = TicTacToeGame.create_new_game(
-            self.file_with_test1.readline().strip(),
-            self.file_with_test1.readline().strip()
-        )
+
         self.file_with_test2 = open('test_data_directory/test_data2.txt', 'r')
         self.file_with_test2.readline()
-        self.tic_tac_toe4 = TicTacToeGame(
-            self.file_with_test2.readline().strip(),
-            self.file_with_test2.readline().strip()
-        )
+
 
     def test_game_data_in_process_1(self):
         self.tic_tac_toe1 = TicTacToeGame('', '')
@@ -60,6 +54,10 @@ class TestTicTacToeGame(unittest.TestCase):
         self.assertEqual(self.tic_tac_toe2.check_winner(), 'O')
 
     def test_game_data_in_progress_3(self):
+        self.tic_tac_toe3 = TicTacToeGame.create_new_game(
+            self.file_with_test1.readline().strip(),
+            self.file_with_test1.readline().strip()
+        )
         self.assertEqual(self.tic_tac_toe3.player1_name, 'Ilia')
         self.assertEqual(self.tic_tac_toe3.player2_name, 'Anna')
         self.assertEqual(self.tic_tac_toe3.game_data, [1, 2, 3, 4, 5, 6, 7, 8, 9])
@@ -78,6 +76,10 @@ class TestTicTacToeGame(unittest.TestCase):
         self.assertEqual(self.tic_tac_toe3.check_winner(), 'X')
 
     def test_set_same_game(self):
+        self.tic_tac_toe4 = TicTacToeGame(
+            self.file_with_test2.readline().strip(),
+            self.file_with_test2.readline().strip()
+        )
         self.assertEqual(self.tic_tac_toe4.game_data, [1, 2, 3, 4, 5, 6, 7, 8, 9])
         self.assertEqual(self.tic_tac_toe4.player1_name, 'Andrew')
         self.assertEqual(self.tic_tac_toe4.player2_name, 'Nastya')
