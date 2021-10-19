@@ -1,0 +1,9 @@
+test_game_data_in_process_1 (tests.TestTicTacToeGame) ... ok
+test_game_data_in_progress_2 (tests.TestTicTacToeGame) ... ok
+test_game_data_in_progress_3 (tests.TestTicTacToeGame) ... ok
+test_set_same_game (tests.TestTicTacToeGame) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.002s
+
+OK

@@ -1,0 +1,156 @@
+[
+    {
+        "type": "warning",
+        "module": "tic_tac_toe_game",
+        "obj": "ValidString.__set_name__",
+        "line": 16,
+        "column": 8,
+        "path": "tic_tac_toe_game.py",
+        "symbol": "attribute-defined-outside-init",
+        "message": "Attribute 'property_name' defined outside __init__",
+        "message-id": "W0201"
+    },
+    {
+        "type": "warning",
+        "module": "tic_tac_toe_game",
+        "obj": "ValidGameData.__set_name__",
+        "line": 35,
+        "column": 8,
+        "path": "tic_tac_toe_game.py",
+        "symbol": "attribute-defined-outside-init",
+        "message": "Attribute 'property_name' defined outside __init__",
+        "message-id": "W0201"
+    },
+    {
+        "type": "convention",
+        "module": "tic_tac_toe_game",
+        "obj": "TicTacToeGame.greeting_players",
+        "line": 59,
+        "column": 4,
+        "path": "tic_tac_toe_game.py",
+        "symbol": "missing-function-docstring",
+        "message": "Missing function or method docstring",
+        "message-id": "C0116"
+    },
+    {
+        "type": "convention",
+        "module": "tic_tac_toe_game",
+        "obj": "TicTacToeGame.get_name",
+        "line": 73,
+        "column": 4,
+        "path": "tic_tac_toe_game.py",
+        "symbol": "missing-function-docstring",
+        "message": "Missing function or method docstring",
+        "message-id": "C0116"
+    },
+    {
+        "type": "convention",
+        "module": "tic_tac_toe_game",
+        "obj": "TicTacToeGame.create_new_game",
+        "line": 88,
+        "column": 4,
+        "path": "tic_tac_toe_game.py",
+        "symbol": "missing-function-docstring",
+        "message": "Missing function or method docstring",
+        "message-id": "C0116"
+    },
+    {
+        "type": "convention",
+        "module": "tic_tac_toe_game",
+        "obj": "TicTacToeGame.create_same_game",
+        "line": 92,
+        "column": 4,
+        "path": "tic_tac_toe_game.py",
+        "symbol": "missing-function-docstring",
+        "message": "Missing function or method docstring",
+        "message-id": "C0116"
+    },
+    {
+        "type": "refactor",
+        "module": "tic_tac_toe_game",
+        "obj": "TicTacToeGame.create_same_game",
+        "line": 93,
+        "column": 8,
+        "path": "tic_tac_toe_game.py",
+        "symbol": "no-else-return",
+        "message": "Unnecessary \"else\" after \"return\"",
+        "message-id": "R1705"
+    },
+    {
+        "type": "refactor",
+        "module": "tic_tac_toe_game",
+        "obj": "TicTacToeGame.__get_user_move",
+        "line": 117,
+        "column": 16,
+        "path": "tic_tac_toe_game.py",
+        "symbol": "no-else-return",
+        "message": "Unnecessary \"else\" after \"return\"",
+        "message-id": "R1705"
+    },
+    {
+        "type": "convention",
+        "module": "tic_tac_toe_game",
+        "obj": "TicTacToeGame.check_winner",
+        "line": 124,
+        "column": 4,
+        "path": "tic_tac_toe_game.py",
+        "symbol": "missing-function-docstring",
+        "message": "Missing function or method docstring",
+        "message-id": "C0116"
+    },
+    {
+        "type": "convention",
+        "module": "tic_tac_toe_game",
+        "obj": "TicTacToeGame.show_playground",
+        "line": 134,
+        "column": 4,
+        "path": "tic_tac_toe_game.py",
+        "symbol": "missing-function-docstring",
+        "message": "Missing function or method docstring",
+        "message-id": "C0116"
+    },
+    {
+        "type": "convention",
+        "module": "tic_tac_toe_game",
+        "obj": "TicTacToeGame.make_move",
+        "line": 143,
+        "column": 4,
+        "path": "tic_tac_toe_game.py",
+        "symbol": "missing-function-docstring",
+        "message": "Missing function or method docstring",
+        "message-id": "C0116"
+    },
+    {
+        "type": "convention",
+        "module": "tic_tac_toe_game",
+        "obj": "TicTacToeGame.play_the_game",
+        "line": 146,
+        "column": 4,
+        "path": "tic_tac_toe_game.py",
+        "symbol": "missing-function-docstring",
+        "message": "Missing function or method docstring",
+        "message-id": "C0116"
+    },
+    {
+        "type": "refactor",
+        "module": "tic_tac_toe_game",
+        "obj": "TicTacToeGame.play_the_game",
+        "line": 158,
+        "column": 16,
+        "path": "tic_tac_toe_game.py",
+        "symbol": "no-else-break",
+        "message": "Unnecessary \"elif\" after \"break\"",
+        "message-id": "R1723"
+    },
+    {
+        "type": "convention",
+        "module": "tic_tac_toe_game",
+        "obj": "main",
+        "line": 176,
+        "column": 0,
+        "path": "tic_tac_toe_game.py",
+        "symbol": "missing-function-docstring",
+        "message": "Missing function or method docstring",
+        "message-id": "C0116"
+    }
+]

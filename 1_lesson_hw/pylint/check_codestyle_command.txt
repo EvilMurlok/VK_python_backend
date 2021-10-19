@@ -1,0 +1,1 @@
+pylint tic_tac_toe_game.py --output-format=json:./pylint/pylint_output.json,colorized

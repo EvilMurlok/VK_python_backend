@@ -11,6 +11,7 @@
 
 class ValidString:
     """A descriptor providing valid data in string fields"""
+
     def __set_name__(self, owner, property_name):
         self.property_name = property_name
 
@@ -29,6 +30,7 @@ class ValidString:
 
 class ValidGameData:
     """A descriptor providing valid data in game data field"""
+
     def __set_name__(self, owner, property_name):
         self.property_name = property_name
 
@@ -67,19 +69,23 @@ class TicTacToeGame:
               'The winner is the one who collects 3 in a row/column/diagonal.')
         input('Enter to continue!')
 
+    @staticmethod
+    def get_name(number_of_person):
+        if number_of_person not in (1, 2):
+            raise ValueError('This value must be equal 1 or 2, '
+                             'because this game is for two people!')
+        temp_name = input(f'Input the name of the {number_of_person} player: ')
+        if number_of_person == 1:
+            return temp_name if temp_name else 'Player_A'
+        return temp_name if temp_name else 'Player_B'
+
     def __init__(self, player1_name, player2_name, game_data=None):
         self.player1_name = player1_name if player1_name else 'Player_A'
         self.player2_name = player2_name if player2_name else 'Player_B'
         self.game_data = game_data
 
     @classmethod
-    def create_new_game(cls):
-        name1, name2 = input('Input the name of the first player: '), \
-                       input('Input the name of the second player: ')
-        if not name1:
-            name1 = 'Player_A'
-        if not name2:
-            name2 = 'Player_B'
+    def create_new_game(cls, name1, name2):
         return cls(name1, name2)
 
     @classmethod
@@ -94,16 +100,7 @@ class TicTacToeGame:
         else:
             return cls
 
-    def show_playground(self):
-        print('The current situation in the playground:')
-        print('-------------')
-        for i in range(3):
-            print('|', self.game_data[0 + i * 3], '|',
-                  self.game_data[1 + i * 3], '|',
-                  self.game_data[2 + i * 3], '|')
-            print('-------------')
-
-    def __make_a_move(self, required_sign):
+    def __get_user_move(self, required_sign):
         flag = False
         while not flag:
             user_input = input(f'On what position will we draw {required_sign}? '
@@ -118,14 +115,13 @@ class TicTacToeGame:
                       '\u001b[1;31mPlease, enter the integer in [1; 9]\u001b[0;0m')
             else:
                 if str(self.game_data[user_input - 1]) not in 'XO':
-                    self.game_data[user_input - 1] = required_sign
-                    flag = True
+                    return user_input
                 else:
                     print('\u001b[9;31mOH, MY GOD!\u001b[0;0m '
                           '\u001b[1;31mThis cell is already taken! '
                           'Try again!\u001b[0;0m')
 
-    def __check_winner(self):
+    def check_winner(self):
         win_conditions = ((1, 2, 3), (4, 5, 6), (7, 8, 9), (1, 4, 7),
                           (2, 5, 8), (3, 6, 9), (1, 5, 9), (3, 5, 7))
         for condition in win_conditions:
@@ -135,22 +131,39 @@ class TicTacToeGame:
                 return self.game_data[condition[0] - 1]
         return False
 
+    def show_playground(self):
+        print('The current situation in the playground:')
+        print('-------------')
+        for i in range(3):
+            print('|', self.game_data[0 + i * 3], '|',
+                  self.game_data[1 + i * 3], '|',
+                  self.game_data[2 + i * 3], '|')
+            print('-------------')
+
+    def make_move(self, required_sign, user_input):
+        self.game_data[user_input - 1] = required_sign
+
     def play_the_game(self):
         turn = 1
         flag = False
         while not flag:
             self.show_playground()
             if turn % 2:
-                self.__make_a_move('X')
+                self.make_move('X', self.__get_user_move('X'))
             else:
-                self.__make_a_move('O')
+                self.make_move('O', self.__get_user_move('O'))
             turn += 1
             if turn > 5:
-                winner_sign = self.__check_winner()
+                winner_sign = self.check_winner()
                 if winner_sign and winner_sign == 'X':
                     print(f'\u001b[1;32mCongratulations!\u001b[0;0m '
                           f'Player \u001b[1;32m{self.player1_name}\u001b[0;0m wins this game! '
                           f'\u001b[1;31m{self.player2_name}\u001b[0;0m, you must train better!')
+                    break
+                elif winner_sign and winner_sign == 'O':
+                    print(f'\u001b[1;32mCongratulations!\u001b[0;0m '
+                          f'Player \u001b[1;32m{self.player2_name}\u001b[0;0m wins this game! '
+                          f'\u001b[1;31m{self.player1_name}\u001b[0;0m, you must train better!')
                     break
             if turn == 10:
                 print(f'\u001b[1;34mThe tie\u001b[0;0m between '
@@ -165,7 +178,8 @@ def main():
     user_wish = input('Do you want to play the game?(y/n)\t').lower()
     info, flag = True, user_wish == 'y'
     while flag:
-        ttt = TicTacToeGame.create_new_game()
+        player1_name, player2_name = TicTacToeGame.get_name(1), TicTacToeGame.get_name(2)
+        ttt = TicTacToeGame.create_new_game(player1_name, player2_name)
         if info:
             ttt.greeting_players()
             info = False
