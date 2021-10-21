@@ -1,0 +1,11 @@
+test_add (tests_custom_vector.TestCustomList) ... ok
+test_ge (tests_custom_vector.TestCustomList) ... ok
+test_gt (tests_custom_vector.TestCustomList) ... ok
+test_le (tests_custom_vector.TestCustomList) ... ok
+test_lt (tests_custom_vector.TestCustomList) ... ok
+test_sub (tests_custom_vector.TestCustomList) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.001s
+
+OK

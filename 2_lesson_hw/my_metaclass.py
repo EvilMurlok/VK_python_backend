@@ -32,6 +32,17 @@ class CustomPointClass(metaclass=CustomAttrMetaclass):
         self.y = new_y
 
 
+class CustomExampleClass(metaclass=CustomAttrMetaclass):
+    x = 50
+
+    def __init__(self, val=99):
+        self.val = val
+
+    @staticmethod
+    def line():
+        return 100
+
+
 def main():
     point = CustomPointClass(10, 19)
     print(point.custom_coordinate_system)

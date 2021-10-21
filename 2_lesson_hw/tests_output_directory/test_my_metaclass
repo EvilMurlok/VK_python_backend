@@ -1,0 +1,7 @@
+test_class_point (tests_metaclass.TestMyMetaclass) ... ok
+test_example_class (tests_metaclass.TestMyMetaclass) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.000s
+
+OK
