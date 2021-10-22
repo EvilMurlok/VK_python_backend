@@ -22,22 +22,18 @@ class CustomNumericalList(list):
         return self.__add__(other)
 
     def __sub__(self, other):
-        custom_list_answ = CustomNumericalList()
-        current = 0
-        while current < len(self) and current < len(other):
-            custom_list_answ.append(self[current] - other[current])
-            current += 1
-        while current < len(self):
-            custom_list_answ.append(self[current])
-            current += 1
-        while current < len(other):
-            custom_list_answ.append(-other[current])
-            current += 1
-        return custom_list_answ
+        """Just take the vector with the sign '-' and add it to self"""
+        return self + CustomNumericalList(map(lambda item: -item, other))
 
     def __rsub__(self, other):
         """Just take the result of __sub__ with the sign '-'"""
         return CustomNumericalList(map(lambda item: -item, self.__sub__(other)))
+
+    def __eq__(self, other):
+        return sum(self) == sum(other)
+
+    def __ne__(self, other):
+        return sum(self) != sum(other)
 
     def __ge__(self, other):
         return sum(self) >= sum(other)
