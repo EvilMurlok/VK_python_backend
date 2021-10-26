@@ -97,8 +97,7 @@ class TicTacToeGame:
                                       getattr(obj, 'player2_name'), \
                                       getattr(obj, 'game_data')
             return cls(name1, name2, game_data)
-        else:
-            return cls
+        return cls
 
     def __get_user_move(self, required_sign):
         flag = False
@@ -116,10 +115,9 @@ class TicTacToeGame:
             else:
                 if str(self.game_data[user_input - 1]) not in 'XO':
                     return user_input
-                else:
-                    print('\u001b[9;31mOH, MY GOD!\u001b[0;0m '
-                          '\u001b[1;31mThis cell is already taken! '
-                          'Try again!\u001b[0;0m')
+                print('\u001b[9;31mOH, MY GOD!\u001b[0;0m '
+                      '\u001b[1;31mThis cell is already taken! '
+                      'Try again!\u001b[0;0m')
 
     def check_winner(self):
         win_conditions = ((1, 2, 3), (4, 5, 6), (7, 8, 9), (1, 4, 7),
