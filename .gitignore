@@ -165,4 +165,18 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+### Python ###
+__pycache__/
+*.pyc
+*.prefs
+*.project
+*.pydevproject
+env
+.env
+.mypy_cache/
+
+
+### logs ###
+*.log
+
 # End of https://www.toptal.com/developers/gitignore/api/macos,windows,visualstudiocode,jetbrains+all
