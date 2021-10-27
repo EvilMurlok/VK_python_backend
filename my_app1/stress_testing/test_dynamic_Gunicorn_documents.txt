@@ -1,0 +1,11 @@
+wrk -t4 -c5000 -d30s --timeout 1s http://127.0.0.1:8000/abracadabra\?qwe\=1
+OUTPUT:
+Running 30s test @ http://127.0.0.1:8000/abracadabra?qwe=1
+  4 threads and 5000 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency   180.28ms   63.34ms 634.94ms   87.50%
+    Req/Sec   171.85    104.65   470.00     68.95%
+  16398 requests in 30.09s, 3.64MB read
+  Socket errors: connect 4877, read 2683, write 487, timeout 0
+Requests/sec:    545.02
+Transfer/sec:    124.01KB

@@ -1,0 +1,12 @@
+wrk -t4 -c5000 -d30s --timeout 1s http://127.0.0.1/public/index.html
+OUTPUT:
+Running 30s test @ http://127.0.0.1/public/index.html
+  4 threads and 5000 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    30.00ms   14.35ms 716.59ms   95.08%
+    Req/Sec     2.08k   744.47     4.44k    68.42%
+  248461 requests in 30.09s, 62.33MB read
+  Socket errors: connect 4751, read 56, write 1, timeout 0
+  Non-2xx or 3xx responses: 187
+Requests/sec:   8258.30
+Transfer/sec:      2.07MB 
