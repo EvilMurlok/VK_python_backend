@@ -1,8 +1,6 @@
 import os
 from django.shortcuts import render
-from django.http import HttpResponse
-from django.http import JsonResponse
-from django.http import Http404
+from django.http import HttpResponse, JsonResponse, Http404
 from application.settings import TEMPLATE_DIR
 from .models import News
 
@@ -11,7 +9,7 @@ from .models import News
 def index(request):
     ordered_news = News.objects.order_by('-created_at')
     return render(request, os.path.join(TEMPLATE_DIR, 'news/index.html'),
-                  {'title': 'Список новостей', 'news': ordered_news})
+                  {'title': 'List of news', 'news': ordered_news})
 
 
 def news_detail(request, news_id):

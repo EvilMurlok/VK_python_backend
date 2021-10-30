@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+<body>
+<h1>
+    {{ title }}
+</h1>
+{% for user in users  %}
+<div>
+    <p>{{ user.name }} was born in {{ user.date_of_birth }}</p>
+    <p>{{ user.name }} has:</p>
+    <ol>
+        <li>{{ user.personal_acc_hcs }} in the personal account for the housing and communal services</li>
+        <li>{{ user.personal_acc_landline_phone }} in the personal account for the landline phone</li>
+        <li>{{ user.personal_acc_distance_phone }} in the personal account for the long-distance phone</li>
+    </ol>
+</div>
+<hr>
+{% endfor %}
+</body>
+</html>

@@ -1,27 +1,28 @@
 import os
 from django.shortcuts import render
-from django.http import HttpResponse
-from django.http import JsonResponse
-from django.http import Http404
+from django.http import JsonResponse, Http404
 from application.settings import TEMPLATE_DIR
 from .models import Users
 
 
-# render the page
+# render the page with te list of users
 def index(request):
-    ordered_news = Users.objects.order_by('-created_at')
+    ordered_users = Users.objects.order_by('-personal_acc_hcs')
     return render(request, os.path.join(TEMPLATE_DIR, 'users/index.html'),
-                  {'title': 'Список новостей', 'news': ordered_news})
+                  {'title': 'Service users', 'users': ordered_users})
 
 
-def news_detail(request, news_id):
+# get detailed information about the user using a GET request
+def user_detail(request):
     try:
-        news = Users.objects.get(pk=news_id)
+        user_id = request.GET.get('user_id')
+        user = Users.objects.get(pk=user_id)
     except:
         raise Http404
-    return JsonResponse({f'{news.title}': [f'{news.content}', f'{news.created_at}']})
+    return JsonResponse({f'{user.name}': [f'{user.date_of_birth}',
+                                          f'{user.personal_acc_hcs}',
+                                          f'{user.personal_acc_landline_phone}',
+                                          f'{user.personal_acc_distance_phone}']})
 
 
-def test(request):
-    print(request)
-    return HttpResponse('<h1>Test page!</h1>')
+
