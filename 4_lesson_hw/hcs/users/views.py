@@ -7,9 +7,9 @@ from .models import Users
 
 # render the page with te list of users
 def index(request):
-    ordered_users = Users.objects.order_by('-personal_acc_hcs')
+    users = Users.objects.all()
     return render(request, os.path.join(TEMPLATE_DIR, 'users/index.html'),
-                  {'title': 'Service users', 'users': ordered_users})
+                  {'title': 'Service users', 'users': users})
 
 
 # get detailed information about the user using a GET request

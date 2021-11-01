@@ -7,7 +7,7 @@ from .models import News
 
 # render the page
 def index(request):
-    ordered_news = News.objects.order_by('-created_at')
+    ordered_news = News.objects.all()
     return render(request, os.path.join(TEMPLATE_DIR, 'news/index.html'),
                   {'title': 'List of news', 'news': ordered_news})
 

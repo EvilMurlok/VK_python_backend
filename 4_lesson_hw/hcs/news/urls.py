@@ -4,8 +4,7 @@ from .views import news_detail
 from .views import test
 
 urlpatterns = [
-    path('', index),
-    path('<int:news_id>', news_detail),
-    path('test/', test),
-
+    path('', index, name='news'),
+    path('<int:news_id>/', news_detail, name='news_detail'),
+    path('test/', test, name='test'),
 ]
