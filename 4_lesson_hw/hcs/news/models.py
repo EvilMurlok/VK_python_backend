@@ -3,9 +3,9 @@ from django.urls import reverse
 
 
 class News(models.Model):
-    title = models.CharField(max_length=150)
-    content = models.TextField(blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    title = models.CharField(max_length=150, verbose_name='title')
+    content = models.TextField(blank=True, verbose_name='content')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='created_at')
 
     def get_absolute_url(self):
         return reverse('view_news', kwargs={'news_id': self.pk})
