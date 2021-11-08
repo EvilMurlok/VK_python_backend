@@ -18,7 +18,8 @@ def view_news(request, news_id):
         news_item = News.objects.get(pk=news_id)
     except News.DoesNotExist:
         raise Http404('No News matches the given query.')
-    return render(request, os.path.join(TEMPLATE_DIR, 'news/view_news.html'), context={'news_item': news_item})
+    return render(request, os.path.join(TEMPLATE_DIR, 'news/view_news.html'), context={'news_item': news_item,
+                                                                                       'title': news_item.title})
 
 
 # return the information about required news
