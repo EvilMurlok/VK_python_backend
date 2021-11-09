@@ -3,6 +3,20 @@ from django.shortcuts import render
 from django.http import JsonResponse, Http404, HttpResponseBadRequest
 from application.settings import TEMPLATE_DIR
 from .models import Users
+from django.views.generic import  ListView
+
+
+class HomeUsers(ListView):
+    model = Users
+    template_name = os.path.join(TEMPLATE_DIR, 'users/home_users_list.html')
+    context_object_name = 'users'
+    # только для статичных данных! (для нестатичных переопределяется метод get_context_data
+    extra_context = {'title': 'Service users'}
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Service users'
+        return context
 
 
 # render the page with te list of users

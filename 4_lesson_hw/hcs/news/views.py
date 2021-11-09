@@ -3,6 +3,21 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse, Http404
 from application.settings import TEMPLATE_DIR
 from .models import News
+from django.views.generic import ListView
+
+
+# this is an alternative and more convenient option of the function index
+class HomeNews(ListView):
+    model = News
+    template_name = os.path.join(TEMPLATE_DIR, 'news/home_news_list.html')
+    context_object_name = 'news'
+    # только для статичных данных! (для нестатичных переопределяется метод get_context_data
+    extra_context = {'title': 'List of news'}
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(HomeNews, self).get_context_data(**kwargs)
+        context['title'] = 'List of news'
+        return context
 
 
 # render the page
