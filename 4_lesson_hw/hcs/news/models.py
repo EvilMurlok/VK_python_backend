@@ -6,9 +6,10 @@ class News(models.Model):
     title = models.CharField(max_length=150, verbose_name='title')
     content = models.TextField(blank=True, verbose_name='content')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='created_at')
+    category = models.ForeignKey('Category', on_delete=models.PROTECT, null=True, verbose_name='Category')
 
     def get_absolute_url(self):
-        return reverse('view_news', kwargs={'news_id': self.pk})
+        return reverse('view_news', kwargs={'pk': self.pk})
 
     def __str__(self):
         return self.title
@@ -17,3 +18,18 @@ class News(models.Model):
         verbose_name = 'News'
         verbose_name_plural = 'News'
         ordering = ['-created_at']
+
+
+class Category(models.Model):
+    title = models.CharField(max_length=150, db_index=True, verbose_name='Category_name')
+
+    def get_absolute_url(self):
+        return reverse('category', kwargs={'category_id': self.pk})
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Category'
+        verbose_name_plural = 'Categories'
+        ordering = ['title']
