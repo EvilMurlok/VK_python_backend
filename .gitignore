@@ -175,6 +175,7 @@ env
 .env
 .mypy_cache/
 local_settings.py
+db.sqlite3
 
 
 ### logs ###
