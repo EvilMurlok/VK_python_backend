@@ -1,13 +1,15 @@
 import os
+
+from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import F
 from django.http import JsonResponse, Http404
-from django.shortcuts import redirect, render
 from django.views.decorators.http import require_GET, require_http_methods
 from application.settings import TEMPLATE_DIR
 from .models import News, Category
 from .forms import NewsForm
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 from django.contrib import messages
+from django.shortcuts import redirect, render
 
 
 # this is an alternative and more convenient option of the function 'index'
@@ -50,26 +52,22 @@ class ViewNews(DetailView):
         return context
 
 
-# return the information about required news
-@require_GET
-def news_detail(request, news_id):
-    try:
-        news = News.objects.get(pk=news_id)
-    except News.DoesNotExist:
-        raise Http404('No News matches the given query.')
-    return JsonResponse({f'{news.title}': [f'{news.content}', f'{news.created_at}']})
+class CreateNews(SuccessMessageMixin, CreateView):
+    form_class = NewsForm
+    template_name = os.path.join(TEMPLATE_DIR, 'news/add_news.html')
+    success_message = "News created successfully!"
 
 
-@require_http_methods(["GET", "POST"])
-def add_news(request):
-    if request.method == 'POST':
-        form = NewsForm(request.POST)
-        if form.is_valid():
-            # print(form.cleaned_data) # тут содержится вся инфа по POST-запросу
-            news = form.save()
-            messages.success(request, 'Form submission successful')
-            return redirect(news)
-    else:
-        form = NewsForm()
-    return render(request, os.path.join(TEMPLATE_DIR, 'news/add_news.html'),
-                  context={'title': 'Add news', 'form': form})
+# @require_http_methods(["GET", "POST"])
+# def add_news(request):
+#     if request.method == 'POST':
+#         form = NewsForm(request.POST)
+#         if form.is_valid():
+#             # print(form.cleaned_data) # тут содержится вся инфа по POST-запросу
+#             news = form.save()
+#             messages.success(request, 'Form submission successful')
+#             return redirect(news)
+#     else:
+#         form = NewsForm()
+#     return render(request, os.path.join(TEMPLATE_DIR, 'news/add_news.html'),
+#                   context={'title': 'Add news', 'form': form})
