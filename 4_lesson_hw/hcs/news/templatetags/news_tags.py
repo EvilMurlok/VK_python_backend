@@ -14,5 +14,5 @@ def get_categories():
 
 @register.inclusion_tag(os.path.join(TEMPLATE_DIR, 'news/list_categories.html'))
 def show_categories():
-    categories = Category.objects.annotate(cnt=Count('news'))
+    categories = Category.objects.filter(news__is_published=True).annotate(cnt=Count('news'))
     return {'categories': categories}

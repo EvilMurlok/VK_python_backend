@@ -25,6 +25,9 @@ class HomeNews(ListView):
         context['title'] = 'List of news'
         return context
 
+    def get_queryset(self):
+        return News.objects.filter(is_published=True).select_related('category')
+
 
 class NewsByCategory(ListView):
     model = News
@@ -37,7 +40,7 @@ class NewsByCategory(ListView):
         return context
 
     def get_queryset(self):
-        return News.objects.filter(category_id=self.kwargs['category_id']).select_related('category')
+        return News.objects.filter(is_published=True, category_id=self.kwargs['category_id']).select_related('category')
 
 
 class ViewNews(DetailView):
@@ -56,7 +59,6 @@ class CreateNews(SuccessMessageMixin, CreateView):
     form_class = NewsForm
     template_name = os.path.join(TEMPLATE_DIR, 'news/add_news.html')
     success_message = "News created successfully!"
-
 
 # @require_http_methods(["GET", "POST"])
 # def add_news(request):
