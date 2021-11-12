@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 class Users(models.Model):
@@ -11,6 +12,10 @@ class Users(models.Model):
     # personal account for the long-distance phone
     personal_acc_distance_phone = models.FloatField(default=0.0)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    # let it be so for now
+    def get_absolute_url(self):
+        return reverse('current_user', kwargs={'pk': self.pk})
 
     def __str__(self):
         return self.name
