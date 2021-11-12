@@ -7,3 +7,9 @@ body {
 .success{
     color: #10b150;
 }
+.add-news{
+    margin: 20px;
+    position: center;
+    color: #fff3cd;
+    padding: 20px;
+}

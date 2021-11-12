@@ -4,36 +4,47 @@
   {{ title }}
 {% endblock %}
 
+{% block sidebar %}
+<div class="btn btn-primary btn-lg">
+    <a class="add-user" aria-current="page" href="{% url 'add_user' %}">Add user</a>
+</div>
+{% endblock %}
+
 {% block content %}
 
 <div class="card mb-3">
-  <div class="card-header">
-    {% if messages %}
+    <div class="card-header">
+        {% if messages %}
         <ul class="messages">
-        {% for message in messages %}
-            <li  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
-        {% endfor %}
+            {% for message in messages %}
+            <li {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }}</li>
+            {% endfor %}
         </ul>
         {% endif %}
-  </div>
-  <div class="card-body">
-    <div class="media">
-      <div class="media-body">
-        <p>{{ user.name }} was born in {{ user.date_of_birth }}</p>
-        <p>{{ user.name }} has:</p>
-        <ol>
-          <li>{{ user.personal_acc_hcs }} in the personal account for the housing and communal services</li>
-          <li>{{ user.personal_acc_landline_phone }} in the personal account for the landline phone</li>
-          <li>{{ user.personal_acc_distance_phone }} in the personal account for the long-distance phone</li>
-        </ol>
-      </div>
+        <div class="d-flex justify-content-between">
+            <a class="btn btn-primary" href="#">Edit user</a>
+            <a class="btn btn-primary" href="#">Delete user</a>
+        </div>
     </div>
-  </div>
-  <div class="card-footer text-muted">
-    {{ user.name }} created at {{ user.created_at|date:"Y-m-d H:i"}}
-    <br>
-    time passed: {{ user.created_at|timesince }}
-  </div>
+
+    <div class="card-body">
+        <div class="media">
+            <div class="media-body">
+                <p>{{ user.name }} was born in {{ user.date_of_birth }}</p>
+                <p>{{ user.name }} has:</p>
+                <ol>
+                    <li>{{ user.personal_acc_hcs }} in the personal account for the housing and communal services</li>
+                    <li>{{ user.personal_acc_landline_phone }} in the personal account for the landline phone</li>
+                    <li>{{ user.personal_acc_distance_phone }} in the personal account for the long-distance phone</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer text-muted">
+        {{ user.name }} created at {{ user.created_at|date:"Y-m-d H:i"}}
+        <br>
+        time passed: {{ user.created_at|timesince }}
+    </div>
 </div>
 
 {% endblock %}

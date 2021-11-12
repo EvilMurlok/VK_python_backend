@@ -4,6 +4,12 @@
   {{ title }}
 {% endblock %}
 
+{% block sidebar %}
+<div class="btn btn-primary btn-lg">
+    <a class="add-user" aria-current="page" href="{% url 'add_user' %}">Add user</a>
+</div>
+{% endblock %}
+
 {% block content %}
 
 {% for user in users %}
@@ -12,18 +18,13 @@
     <div class="media">
       <div class="media-body">
         <p>{{ user.name }} was born in {{ user.date_of_birth }}</p>
-        <p>{{ user.name }} has:</p>
-        <ol>
-          <li>{{ user.personal_acc_hcs }} in the personal account for the housing and communal services</li>
-          <li>{{ user.personal_acc_landline_phone }} in the personal account for the landline phone</li>
-          <li>{{ user.personal_acc_distance_phone }} in the personal account for the long-distance phone</li>
-        </ol>
+        {{ user.name }} has created the account at {{ user.created_at|date:"Y-m-d H:i"}}
+        <br>
+        <a href="{{ user.get_absolute_url }}" class="btn btn-primary mt-2">Show details</a>
       </div>
     </div>
   </div>
   <div class="card-footer text-muted">
-    {{ user.name }} created at {{ user.created_at|date:"Y-m-d H:i"}}
-    <br>
     time passed: {{ user.created_at|timesince }}
   </div>
 </div>

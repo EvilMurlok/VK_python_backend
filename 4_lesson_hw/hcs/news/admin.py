@@ -3,8 +3,8 @@ from .models import News, Category
 
 
 class NewsAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'content', 'created_at', 'category')
-    list_display_links = ('id', 'title', 'content')
+    list_display = ('id', 'title', 'content', 'created_at', 'category', 'views')
+    list_display_links = ('id', 'title', 'content', 'views')
     search_fields = ('title', 'content', 'category',)
     list_filter = ('category',)
 

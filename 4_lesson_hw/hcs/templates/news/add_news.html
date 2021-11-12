@@ -4,10 +4,6 @@
 {{ title }}
 {% endblock %}
 
-{% block sidebar %}
-{% include 'inc/_sidebar.html' %}
-{% endblock %}
-
 {% block content %}
 
 <form action="{% url 'add_news' %}" method="POST">
