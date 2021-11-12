@@ -20,14 +20,14 @@ class HomeUsers(ListView):
 
 
 # render the page with te list of users
-def index(request):
-    users = Users.objects.all()
-    return render(request, os.path.join(TEMPLATE_DIR, 'users/index.html'),
-                  {'title': 'Service users', 'users': users})
+# def index(request):
+#     users = Users.objects.all()
+#     return render(request, os.path.join(TEMPLATE_DIR, 'users/index.html'),
+#                   {'title': 'Service users', 'users': users})
 
 
 # get detailed information about the user using a GET request
-# !!!!   @api_view(['GET'])
+# !!!!   @api_view(['GET']) from Django Rest Framework
 def user_detail(request):
     if request.method != 'GET':
         return HttpResponseBadRequest('GET required')

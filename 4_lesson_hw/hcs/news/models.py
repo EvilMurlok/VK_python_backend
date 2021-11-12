@@ -7,6 +7,7 @@ class News(models.Model):
     content = models.TextField(blank=True, verbose_name='content')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='created_at')
     category = models.ForeignKey('Category', on_delete=models.PROTECT, null=True, verbose_name='Category')
+    views = models.IntegerField(default=0, verbose_name='views')
 
     def get_absolute_url(self):
         return reverse('view_news', kwargs={'pk': self.pk})
