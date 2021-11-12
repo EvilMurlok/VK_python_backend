@@ -2,11 +2,12 @@ import os
 from django.db.models import F
 from django.http import JsonResponse, Http404
 from django.shortcuts import redirect, render
-from django.views.decorators.http import require_GET,  require_http_methods
+from django.views.decorators.http import require_GET, require_http_methods
 from application.settings import TEMPLATE_DIR
 from .models import News, Category
 from .forms import NewsForm
 from django.views.generic import ListView, DetailView
+from django.contrib import messages
 
 
 # this is an alternative and more convenient option of the function 'index'
@@ -66,6 +67,7 @@ def add_news(request):
         if form.is_valid():
             # print(form.cleaned_data) # тут содержится вся инфа по POST-запросу
             news = form.save()
+            messages.success(request, 'Form submission successful')
             return redirect(news)
     else:
         form = NewsForm()
