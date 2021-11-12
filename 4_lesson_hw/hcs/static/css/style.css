@@ -1,15 +1,21 @@
 body {
     background-color: #fff3cd;
 }
+a {
+    text-decoration: none;
+}
 .errorlist{
     color: #ec1529;
 }
 .success{
     color: #10b150;
 }
-.add-news{
-    margin: 20px;
-    position: center;
-    color: #fff3cd;
-    padding: 20px;
+
+.add-user, .add-news{
+    color: whitesmoke;
+    margin: 20px 70px;
+}
+
+.add-news:hover, .add-user:hover{
+    color: whitesmoke;
 }
