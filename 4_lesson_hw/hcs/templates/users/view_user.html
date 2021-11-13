@@ -5,9 +5,7 @@
 {% endblock %}
 
 {% block sidebar %}
-<div class="btn btn-primary btn-lg">
-    <a class="add-user" aria-current="page" href="{% url 'add_user' %}">Add user</a>
-</div>
+    {% include 'users/left_panel.html' %}
 {% endblock %}
 
 {% block content %}

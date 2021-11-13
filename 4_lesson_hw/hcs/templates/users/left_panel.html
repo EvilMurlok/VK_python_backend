@@ -1,0 +1,5 @@
+{% if request.user.is_authenticated %}
+<div class="btn btn-primary btn-lg">
+    <a class="add-user" aria-current="page" href="{% url 'add_user' %}">Add user</a>
+</div>
+{% endif %}

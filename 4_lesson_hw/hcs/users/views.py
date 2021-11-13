@@ -1,4 +1,6 @@
 import os
+
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_GET, require_http_methods
 from application.settings import TEMPLATE_DIR
@@ -14,6 +16,7 @@ class HomeUsers(ListView):
     context_object_name = 'users'
     # только для статичных данных! (для нестатичных переопределяется метод get_context_data
     extra_context = {'title': 'Service users'}
+    paginate_by = 3
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -21,6 +24,7 @@ class HomeUsers(ListView):
         return context
 
 
+@login_required(login_url='/admin/')
 @require_http_methods(["GET", "POST"])
 def add_user(request):
     if request.method == 'POST':

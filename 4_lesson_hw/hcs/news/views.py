@@ -1,15 +1,15 @@
 import os
 
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import F
-from django.http import JsonResponse, Http404
-from django.views.decorators.http import require_GET, require_http_methods
 from application.settings import TEMPLATE_DIR
 from .models import News, Category
 from .forms import NewsForm
 from django.views.generic import ListView, DetailView, CreateView
 from django.contrib import messages
 from django.shortcuts import redirect, render
+from django.views.decorators.http import require_http_methods
 
 
 # this is an alternative and more convenient option of the function 'index'
@@ -19,6 +19,7 @@ class HomeNews(ListView):
     context_object_name = 'news'
     # только для статичных данных! (для нестатичных переопределяется метод get_context_data
     extra_context = {'title': 'List of news'}
+    paginate_by = 3
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(HomeNews, self).get_context_data(**kwargs)
@@ -33,6 +34,7 @@ class NewsByCategory(ListView):
     model = News
     template_name = os.path.join(TEMPLATE_DIR, 'news/home_news_list.html')
     context_object_name = 'news'
+    paginate_by = 2
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -55,10 +57,11 @@ class ViewNews(DetailView):
         return context
 
 
-class CreateNews(SuccessMessageMixin, CreateView):
+class CreateNews(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     form_class = NewsForm
     template_name = os.path.join(TEMPLATE_DIR, 'news/add_news.html')
     success_message = "News created successfully!"
+    login_url = '/admin/'
 
 # @require_http_methods(["GET", "POST"])
 # def add_news(request):
@@ -67,7 +70,7 @@ class CreateNews(SuccessMessageMixin, CreateView):
 #         if form.is_valid():
 #             # print(form.cleaned_data) # тут содержится вся инфа по POST-запросу
 #             news = form.save()
-#             messages.success(request, 'Form submission successful')
+#             messages.success(request, 'News created successfully!')
 #             return redirect(news)
 #     else:
 #         form = NewsForm()
