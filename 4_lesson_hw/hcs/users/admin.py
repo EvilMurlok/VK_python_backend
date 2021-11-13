@@ -12,19 +12,19 @@ class UsersAdmin(UserAdmin):
     search_fields = ('first_name', 'last_name', 'date_of_birth',)
     list_filter = ('email', 'is_staff', 'is_active',)
     fieldsets = (
-        ('username', {'fields': ('email', 'password', 'first_name', 'last_name',
-                           'date_of_birth', 'personal_acc_hcs',
-                           'personal_acc_landline_phone', 'personal_acc_distance_phone',)}),
+        ('Fill all fields', {'fields': ('username', 'email', 'password', 'first_name', 'last_name',
+                                 'date_of_birth', 'personal_acc_hcs',
+                                 'personal_acc_landline_phone', 'personal_acc_distance_phone',)}),
         ('Permissions', {'fields': ('is_staff', 'is_active')}),
     )
     add_fieldsets = (
-        ('username', {
+        ('Fill all fields', {
             'classes': ('wide',),
             'fields': (
-                        'email', 'password1', 'password2', 'is_staff', 'is_active',
-                        'first_name', 'last_name',
-                        'date_of_birth', 'personal_acc_hcs',
-                        'personal_acc_landline_phone', 'personal_acc_distance_phone',
+                'username', 'email', 'password1', 'password2', 'is_staff', 'is_active',
+                'first_name', 'last_name',
+                'date_of_birth', 'personal_acc_hcs',
+                'personal_acc_landline_phone', 'personal_acc_distance_phone',
             )}
          ),
     )

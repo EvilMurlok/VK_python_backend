@@ -12,9 +12,10 @@ class MyDateInput(forms.DateInput):
 class UserForm(forms.ModelForm):
     class Meta:
         model = Users
-        fields = ['first_name', 'last_name', 'email', 'date_of_birth', 'personal_acc_hcs',
+        fields = ['username', 'first_name', 'last_name', 'email', 'date_of_birth', 'personal_acc_hcs',
                   'personal_acc_landline_phone', 'personal_acc_distance_phone']
         widgets = {
+            'username': forms.TextInput(attrs={'class': 'form-control'}),
             'first_name': forms.TextInput(attrs={'class': 'form-control'}),
             'last_name': forms.TextInput(attrs={'class': 'form-control'}),
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
