@@ -2,8 +2,6 @@ import re
 from django import forms
 from .models import Users
 from django.core.exceptions import ValidationError
-from django.contrib.admin.widgets import AdminDateWidget
-from django.forms.fields import DateField
 
 
 class MyDateInput(forms.DateInput):
@@ -14,21 +12,29 @@ class MyDateInput(forms.DateInput):
 class UserForm(forms.ModelForm):
     class Meta:
         model = Users
-        fields = ['name', 'date_of_birth', 'personal_acc_hcs',
+        fields = ['first_name', 'last_name', 'email', 'date_of_birth', 'personal_acc_hcs',
                   'personal_acc_landline_phone', 'personal_acc_distance_phone']
         widgets = {
-            'name': forms.TextInput(attrs={'class': 'form-control'}),
-            'date_of_birth': MyDateInput({ 'class': 'form-control' }),
+            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'date_of_birth': MyDateInput({'class': 'form-control'}),
             'personal_acc_hcs': forms.NumberInput(attrs={'class': 'form-control'}),
             'personal_acc_landline_phone': forms.NumberInput(attrs={'class': 'form-control'}),
             'personal_acc_distance_phone': forms.NumberInput(attrs={'class': 'form-control'}),
         }
 
-    def clean_name(self):
-        name = self.cleaned_data['name']
-        if re.match(r'[A-Z][a-z]+\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+)?', name):
-            return name
-        raise ValidationError('The entered name is not in the correct format!')
+    def clean_first_name(self):
+        first_name = self.cleaned_data['first_name']
+        if re.match(r'[A-Z][a-z]', first_name):
+            return first_name
+        raise ValidationError('The entered first name must consists of only letters!')
+
+    def clean_last_name(self):
+        last_name = self.cleaned_data['last_name']
+        if re.match(r'[A-Z][a-z]', last_name):
+            return last_name
+        raise ValidationError('The entered last name must consists of only letters!')
 
     def clean_personal_acc_distance_phone(self):
         personal_acc_distance_phone = self.cleaned_data['personal_acc_distance_phone']

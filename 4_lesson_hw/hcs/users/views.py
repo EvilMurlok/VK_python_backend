@@ -43,4 +43,16 @@ def add_user(request):
 def user_detail(request, pk):
     user = get_object_or_404(Users, pk=pk)
     return render(request, os.path.join(TEMPLATE_DIR, 'users/view_user.html'),
-                  context={'title': f'User {user.name}', 'user': user})
+                  context={'title': f'User {user.last_name}', 'user': user})
+
+
+@require_GET
+def register(request):
+    return render(request, os.path.join(TEMPLATE_DIR, 'users/register_user.html'),
+                  context={'title': 'Registration of new user'})
+
+
+@require_GET
+def login(request):
+    return render(request, os.path.join(TEMPLATE_DIR, 'users/login_user.html'),
+                  context={'title': 'Login user'})

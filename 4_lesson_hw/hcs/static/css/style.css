@@ -11,11 +11,20 @@ a {
     color: #10b150;
 }
 
-.add-user, .add-news{
+
+
+
+.register,
+.register:hover{
     color: whitesmoke;
-    margin: 20px 70px;
 }
 
-.add-news:hover, .add-user:hover{
-    color: whitesmoke;
+.register{
+    margin: 0 10px;
 }
+
+.navbar-nav {
+    display:flex;
+    width:100%;
+}
+

@@ -30,6 +30,13 @@
             {{ form.category.errors }}
         </div>
     </div>
+    <div class="mb-3">
+        <label for="{{ form.is_published.id_for_label}}" class="form-label">Опубликовано?</label>
+        {{ form.is_published }}
+        <div class="wrong-feeling">
+            {{ form.is_published.errors }}
+        </div>
+    </div>
     <button type="submit" class="btn btn-primary">Add news</button>
 </form>
 

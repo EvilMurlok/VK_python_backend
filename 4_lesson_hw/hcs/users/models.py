@@ -1,10 +1,13 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import AbstractUser
 
 
-class Users(models.Model):
-    name = models.CharField(max_length=150, verbose_name='name')
-    date_of_birth = models.DateField(blank=True, verbose_name='date_of_birth')
+class Users(AbstractUser):
+    first_name = models.CharField(blank=False, max_length=150, verbose_name='first_name')
+    last_name = models.CharField(blank=False, max_length=150, verbose_name='last_name')
+    email = models.EmailField(blank=False, unique=True, verbose_name='email')
+    date_of_birth = models.DateField(blank=True, default='2000-01-01', verbose_name='date_of_birth')
     # personal account for the housing and communal services
     personal_acc_hcs = models.FloatField(default=0.0, verbose_name='personal_acc_hcs')
     # personal account for the landline phone
@@ -18,7 +21,7 @@ class Users(models.Model):
         return reverse('current_user', kwargs={'pk': self.pk})
 
     def __str__(self):
-        return self.name
+        return str(self.first_name) + str(self.last_name)
 
     class Meta:
         verbose_name = 'User'
