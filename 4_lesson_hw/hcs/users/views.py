@@ -39,6 +39,15 @@ def add_user(request):
                   context={'title': 'Add user', 'form': form})
 
 
+@login_required(login_url='/admin/')
+@require_http_methods(["GET", "POST"])
+def delete_user(request, pk):
+    user = get_object_or_404(Users, pk=pk)
+    user.delete()
+    messages.success(request, 'The account deleted successfully')
+    return redirect('users')
+
+
 @require_GET
 def user_detail(request, pk):
     user = get_object_or_404(Users, pk=pk)

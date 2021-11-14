@@ -25,6 +25,14 @@ class UserForm(forms.ModelForm):
             'personal_acc_distance_phone': forms.NumberInput(attrs={'class': 'form-control'}),
         }
 
+    def clean_username(self):
+        username = self.cleaned_data['username']
+        try:
+            Users.objects.get(username=username)
+        except Users.DoesNotExist:
+            return username
+        raise forms.ValidationError('That username is already taken, please select another.')
+
     def clean_first_name(self):
         first_name = self.cleaned_data['first_name']
         if re.match(r'[A-Z][a-z]', first_name):

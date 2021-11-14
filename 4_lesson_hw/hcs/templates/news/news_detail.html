@@ -12,13 +12,7 @@
 
 <div class="card mb-3">
    <div class="card-header">
-       {% if messages %}
-        <ul class="messages">
-        {% for message in messages %}
-            <li  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
-        {% endfor %}
-        </ul>
-        {% endif %}
+        {% include 'inc/_messages.html' %}
         <div>Категория: <a href="{{ news_item.category.get_absolute_url }}">{{ news_item.category.title }}</a></div>
         <div>Просмотры: {{ news_item.views }}</div>
   </div>

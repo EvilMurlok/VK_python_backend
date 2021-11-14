@@ -1,5 +1,5 @@
 from django.db import models
-from django.urls import reverse
+from django.urls import reverse_lazy
 from django.contrib.auth.models import AbstractUser
 
 
@@ -18,7 +18,7 @@ class Users(AbstractUser):
 
     # let it be so for now
     def get_absolute_url(self):
-        return reverse('current_user', kwargs={'pk': self.pk})
+        return reverse_lazy('current_user', kwargs={'pk': self.pk})
 
     def __str__(self):
         return str(self.first_name) + str(self.last_name)
