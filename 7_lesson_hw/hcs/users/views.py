@@ -22,7 +22,7 @@ class UsersCreateView(generics.CreateAPIView):
     serializer_class = CreateUserSerializer
 
 
-class UsersDeleteView(generics.DestroyAPIView):
+class UsersRetrieveDeleteView(generics.RetrieveDestroyAPIView):
     serializer_class = DetailUsersSerializer
     queryset = Users.objects.all()
 
