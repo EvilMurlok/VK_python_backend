@@ -1,6 +1,8 @@
 import re
 
-from django.shortcuts import get_object_or_404
+# это можно было бы использовать для валидации пароля, но написал свой собственный,
+# так как раздражает муть с "Общие пароли запрещены", а удобно вводить всем пароли Qwerty123
+# from django.contrib.auth.password_validation import validate_password
 
 from rest_framework import serializers
 
@@ -10,14 +12,14 @@ from .models import Users
 class DetailUsersSerializer(serializers.ModelSerializer):
     class Meta:
         model = Users
-        fields = ['username', 'first_name', 'last_name', 'email', 'date_of_birth',
+        fields = ['email', 'username', 'first_name', 'last_name', 'date_of_birth',
                   'personal_acc_hcs', 'personal_acc_landline_phone', 'personal_acc_distance_phone']
 
 
 class CreateUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = Users
-        fields = ['email', 'username', 'first_name', 'last_name', 'date_of_birth',
+        fields = ['email', 'username', 'password', 'first_name', 'last_name', 'date_of_birth',
                   'personal_acc_hcs', 'personal_acc_landline_phone', 'personal_acc_distance_phone',
                   ]
         extra_kwargs = {'password': {'write_only': True}}
@@ -87,3 +89,22 @@ class UpdateUserUsernameSerializer(serializers.ModelSerializer):
     class Meta:
         model = Users
         fields = ['username', ]
+
+
+class ChangePasswordSerializer(serializers.ModelSerializer):
+    old_password = serializers.CharField()
+    new_password = serializers.CharField(required=True)
+
+    class Meta:
+        model = Users
+        fields = ['old_password', 'new_password', ]
+
+    def validate_new_password(self, new_password):
+        if new_password.lower() == new_password:
+            raise serializers.ValidationError('Password should contains at least one capital letter!')
+        elif new_password.isdigit():
+            raise serializers.ValidationError('Password must not be numeric!')
+        elif len(new_password) < 8:
+            raise serializers.ValidationError('Password must not be shorter then 8 symbols')
+        else:
+            return new_password
