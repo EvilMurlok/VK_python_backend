@@ -1,4 +1,5 @@
 from django.urls import path
+
 from .views import UsersCreateView
 from .views import UsersListView
 from .views import UsersDeleteView
