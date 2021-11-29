@@ -14,10 +14,17 @@
                     <a class="nav-link active" aria-current="page" href="{% url 'users' %}">Users</a>
                 </li>
             </ul>
-            <div class="d-flex">
-                <a class="btn btn-primary register" href="{% url 'register' %}">Registration</a>
-                <a class="btn btn-primary register" href="{% url 'login' %}">Login</a>
-            </div>
+            {% if not request.user.is_authenticated %}
+                <div class="d-flex">
+                    <a class="btn btn-primary register" href="{% url 'register' %}">Registration</a>
+                    <a class="btn btn-primary register" href="{% url 'login' %}">Login</a>
+                </div>
+            {% elif request.user.is_authenticated %}
+                <div class="d-flex">
+                    <span class="navbar-text">{{ user.username }}</span>
+                    <a class="btn btn-primary register" href="{% url 'logout' %}">Logout</a>
+                </div>
+            {% endif %}
         </div>
     </div>
 </nav>

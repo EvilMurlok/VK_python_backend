@@ -2,14 +2,27 @@ import os
 
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
 from django.db.models import F
-from application.settings import TEMPLATE_DIR
+from django.views.decorators.http import require_http_methods
+from django.views.generic import ListView, DetailView, CreateView
+from django.shortcuts import redirect, render
+
+from application.settings import TEMPLATE_DIR, LOGIN_URL
 from .models import News, Category
 from .forms import NewsForm
-from django.views.generic import ListView, DetailView, CreateView
-from django.contrib import messages
-from django.shortcuts import redirect, render
-from django.views.decorators.http import require_http_methods
+
+
+def login_required(view_func):
+    def wrapped(request, *args, **kwargs):
+        if request.user.is_anonymous:
+            path = request.build_absolute_uri()
+            from django.contrib.auth.views import redirect_to_login
+            return redirect_to_login(path, LOGIN_URL)
+        else:
+            return view_func(request, *args, **kwargs)
+
+    return wrapped
 
 
 # this is an alternative and more convenient option of the function 'index'
@@ -61,18 +74,20 @@ class CreateNews(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     form_class = NewsForm
     template_name = os.path.join(TEMPLATE_DIR, 'news/add_news.html')
     success_message = "News created successfully!"
-    login_url = '/admin/'
+    login_url = '/users/login/'
 
-# @require_http_methods(["GET", "POST"])
-# def add_news(request):
-#     if request.method == 'POST':
-#         form = NewsForm(request.POST)
-#         if form.is_valid():
-#             # print(form.cleaned_data) # тут содержится вся инфа по POST-запросу
-#             news = form.save()
-#             messages.success(request, 'News created successfully!')
-#             return redirect(news)
-#     else:
-#         form = NewsForm()
-#     return render(request, os.path.join(TEMPLATE_DIR, 'news/add_news.html'),
-#                   context={'title': 'Add news', 'form': form})
+
+@login_required
+@require_http_methods(["GET", "POST"])
+def add_news(request):
+    if request.method == 'POST':
+        form = NewsForm(request.POST)
+        if form.is_valid():
+            # print(form.cleaned_data) # тут содержится вся инфа по POST-запросу
+            news = form.save()
+            messages.success(request, 'News created successfully!')
+            return redirect(news)
+    else:
+        form = NewsForm()
+    return render(request, os.path.join(TEMPLATE_DIR, 'news/add_news.html'),
+                  context={'title': 'Add news', 'form': form})

@@ -5,7 +5,62 @@
 {% endblock %}
 
 {% block content %}
+    <p>Please, sign up using the following form:</p>
 
+    <form action="{% url 'register' %}" method="POST">
+        {% csrf_token %}
+        {{ form.non_field.errors }}
+        <div class="mb-3">
+            <label for="{{ form.name.id_for_label }}" class="form-label">First name</label>
+            {{ form.first_name }}
+            <div class="wrong-feeling">
+                {{ form.first_name.errors }}
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="{{ form.name.id_for_label }}" class="form-label">Last name</label>
+            {{ form.last_name }}
+            <div class="wrong-feeling">
+                {{ form.last_name.errors }}
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="{{ form.name.id_for_label }}" class="form-label">Username</label>
+            {{ form.username }}
+            <div class="wrong-feeling">
+                {{ form.username.errors }}
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="{{ form.name.id_for_label }}" class="form-label">Email</label>
+            {{ form.email }}
+            <div class="wrong-feeling">
+                {{ form.email.errors }}
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="{{ form.date_of_birth.id_for_label }}" class="form-label">Date of birth</label>
+            {{ form.date_of_birth }}
+            <div class="wrong-feeling">
+                {{ form.date_of_birth.errors }}
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="{{ form.password.id_for_label }}" class="form-label">Password</label>
+            {{ form.password }}
+            <div class="wrong-feeling">
+                {{ form.password.errors }}
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="{{ form.password2.id_for_label }}" class="form-label">Confirm password</label>
+            {{ form.password2 }}
+            <div class="wrong-feeling">
+                {{ form.password2.errors }}
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
 
 {% endblock %}
 

@@ -21,7 +21,7 @@ class Users(AbstractUser):
         return reverse_lazy('current_user', kwargs={'pk': self.pk})
 
     def __str__(self):
-        return str(self.first_name) + str(self.last_name)
+        return str(self.first_name) + ' ' + str(self.last_name)
 
     class Meta:
         verbose_name = 'User'

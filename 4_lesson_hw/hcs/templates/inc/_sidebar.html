@@ -1,7 +1,5 @@
 {% load news_tags %}
 {% show_categories %}
-{% if request.user.is_authenticated %}
 <div>
     <a class="btn btn-primary btn-lg mt-3" aria-current="page" href="{% url 'add_news' %}">Add news</a>
 </div>
-{% endif %}

@@ -7,7 +7,7 @@ from django.contrib.auth.admin import UserAdmin
 class UsersAdmin(UserAdmin):
     list_display = ('id', 'first_name', 'last_name', 'email', 'date_of_birth', 'personal_acc_hcs',
                     'personal_acc_landline_phone', 'personal_acc_distance_phone',
-                    'created_at',)
+                    'created_at', 'is_staff',)
     list_display_links = ('id', 'first_name', 'last_name', 'email', 'date_of_birth',)
     search_fields = ('first_name', 'last_name', 'date_of_birth',)
     list_filter = ('email', 'is_staff', 'is_active',)

@@ -19,6 +19,7 @@ from django.urls import include
 from .settings import DEBUG
 
 urlpatterns = [
+    path('', include('social_django.urls', namespace='social')),
     path('admin/', admin.site.urls),
     path('news/', include('news.urls')),
     path('users/', include('users.urls')),
