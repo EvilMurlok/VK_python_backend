@@ -21,7 +21,7 @@
                 </div>
             {% elif request.user.is_authenticated %}
                 <div class="d-flex">
-                    <span class="navbar-text">{{ user.username }}</span>
+                    <span class="navbar-text">{{ request.user.username }}</span>
                     <a class="btn btn-primary register" href="{% url 'logout' %}">Logout</a>
                 </div>
             {% endif %}

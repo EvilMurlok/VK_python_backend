@@ -8,23 +8,9 @@ from django.views.generic import ListView
 
 from application.settings import TEMPLATE_DIR
 
-from .models import Users
+from .models import Users, Receipt
 from .forms import UserForm, UserRegistrationForm, UserLoginForm
-
-
-def admin_login_required(view_func):
-    def wrapped(request, *args, **kwargs):
-        if request.user.is_anonymous:
-            path = request.build_absolute_uri()
-            from django.contrib.auth.views import redirect_to_login
-            return redirect_to_login(path, '/users/login/')
-        else:
-            if request.user.is_staff:
-                return view_func(request, *args, **kwargs)
-            else:
-                messages.error(request, 'You do not have sufficient rights to do this!')
-                return redirect('users')
-    return wrapped
+from application.utils import admin_login_required, login_required
 
 
 class HomeUsers(ListView):
@@ -65,11 +51,19 @@ def delete_user(request, pk):
     return redirect('users')
 
 
+@login_required
+@require_GET
+def show_receipts(request):
+    receipts = Receipt.objects.filter(users=request.user)
+    return render(request, os.path.join(TEMPLATE_DIR, 'users/available_receipts.html'),
+                  context={'title': f'Receipts of {request.user.last_name} {request.user.first_name}',
+                           'receipts': receipts})
+
 @require_GET
 def user_detail(request, pk):
     user = get_object_or_404(Users, pk=pk)
     return render(request, os.path.join(TEMPLATE_DIR, 'users/view_user.html'),
-                  context={'title': f'User {user.last_name}', 'user': user})
+                  context={'title': f'User {user.last_name}', 'user_info': user})
 
 
 @require_http_methods(["GET", "POST"])

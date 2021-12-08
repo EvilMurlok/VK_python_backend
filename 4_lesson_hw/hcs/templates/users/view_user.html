@@ -15,24 +15,24 @@
         {% include 'inc/_messages.html' %}
         <div class="d-flex justify-content-between">
             <!-- <a class="btn btn-primary" href="#">Edit user</a> -->
-            <a class="btn btn-primary" href="{% url 'delete_user' pk=user.id %}">Delete user</a>
+            <a class="btn btn-primary" href="{% url 'delete_user' pk=user_info.id %}">Delete user</a>
         </div>
     </div>
 
     <div class="card-body">
         <div class="media">
             <div class="media-body">
-                <p>{{ user.first_name }} {{user.last_name }} was born in {{ user.date_of_birth }}</p>
+                <p>{{ user_info.first_name }} {{user_info.last_name }} was born in {{ user_info.date_of_birth }}</p>
                 <p>
-                    Username: {{ user.username }}
+                    Username: {{ user_info.username }}
                     <br>
-                    Email: {{ user.email }}
+                    Email: {{ user_info.email }}
                 </p>
-                <p>{{ user.first_name }} {{user.last_name }} has:</p>
+                <p>{{ user_info.first_name }} {{ user_info.last_name }} has:</p>
                 <ol>
-                    <li>{{ user.personal_acc_hcs }} in the personal account for the housing and communal services</li>
-                    <li>{{ user.personal_acc_landline_phone }} in the personal account for the landline phone</li>
-                    <li>{{ user.personal_acc_distance_phone }} in the personal account for the long-distance phone</li>
+                    <li>{{ user_info.personal_acc_hcs }} in the personal account for the housing and communal services</li>
+                    <li>{{ user_info.personal_acc_landline_phone }} in the personal account for the landline phone</li>
+                    <li>{{ user_info.personal_acc_distance_phone }} in the personal account for the long-distance phone</li>
                 </ol>
             </div>
         </div>

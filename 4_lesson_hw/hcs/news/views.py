@@ -11,18 +11,7 @@ from django.shortcuts import redirect, render
 from application.settings import TEMPLATE_DIR, LOGIN_URL
 from .models import News, Category
 from .forms import NewsForm
-
-
-def login_required(view_func):
-    def wrapped(request, *args, **kwargs):
-        if request.user.is_anonymous:
-            path = request.build_absolute_uri()
-            from django.contrib.auth.views import redirect_to_login
-            return redirect_to_login(path, LOGIN_URL)
-        else:
-            return view_func(request, *args, **kwargs)
-
-    return wrapped
+from application.utils import login_required
 
 
 # this is an alternative and more convenient option of the function 'index'
