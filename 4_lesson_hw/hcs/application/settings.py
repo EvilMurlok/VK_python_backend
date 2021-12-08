@@ -10,8 +10,15 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
-from pathlib import Path
 import os
+
+from celery.schedules import crontab
+from pathlib import Path
+
+from .local_settings import EMAIL_HOST_PASSWORD
+from .local_settings import EMAIL_HOST_USER
+from .local_settings import DEFAULT_FROM_EMAIL
+from .local_settings import ADMIN_EMAILS
 from .local_settings import USERNAME
 from .local_settings import PASSWORD
 
@@ -39,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'debug_toolbar',
+    'django_celery_results',
     'social_django',
     'news.apps.NewsConfig',
     'users.apps.UsersConfig',
@@ -107,6 +115,7 @@ DATABASES = {
         'PORT': 5432,
     },
 }
+
 """ 'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
@@ -170,3 +179,29 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 INTERNAL_IPS = [
     '127.0.0.1',
 ]
+
+CELERY_TIMEZONE = "Europe/Moscow"
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'django-db'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+
+CELERY_BEAT_SCHEDULE = {
+    'moderate-news-titles': {
+        'task': 'news.tasks.moderate_news_titles',
+        'schedule': crontab(minute='*', hour='*', day_of_month='*', month_of_year='*', day_of_week='*'),
+    },
+}
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD
+ADMIN_EMAILS = ADMIN_EMAILS
+DEFAULT_FROM_EMAIL = DEFAULT_FROM_EMAIL
+
+BANNED_WORDS_PATH = os.path.join(BASE_DIR, 'data/banned_words.txt')

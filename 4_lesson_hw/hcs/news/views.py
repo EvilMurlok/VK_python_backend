@@ -8,7 +8,8 @@ from django.views.decorators.http import require_http_methods
 from django.views.generic import ListView, DetailView, CreateView
 from django.shortcuts import redirect, render
 
-from application.settings import TEMPLATE_DIR, LOGIN_URL
+from news.tasks import send_mail_to_admin
+from application.settings import TEMPLATE_DIR
 from .models import News, Category
 from .forms import NewsForm
 from application.utils import login_required
@@ -74,6 +75,10 @@ def add_news(request):
         if form.is_valid():
             # print(form.cleaned_data) # тут содержится вся инфа по POST-запросу
             news = form.save()
+            send_mail_to_admin.delay(
+                subject=f'New news # {news.pk} created by {request.user.last_name} {request.user.first_name}',
+                message=str(news) + '\n' + news.content
+            )
             messages.success(request, 'News created successfully!')
             return redirect(news)
     else:
