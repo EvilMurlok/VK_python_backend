@@ -177,6 +177,18 @@ env
 local_settings.py
 db.sqlite3
 
+# some local files
+lectures/
+
+# redis
+dump.rdb
+
+# celery
+celerybeat-schedule.db
+
+# service static
+admin/
+debug_toolbar/
 
 ### logs ###
 *.log
