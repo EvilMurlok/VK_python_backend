@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  {{ title }}
+{% endblock %}
+
+{% block sidebar %}
+    {% include 'users/left_panel.html' %}
+{% endblock %}
+
+{% block content %}
+
+<div class="card mb-3">
+    <div class="card-header">
+        {% include 'inc/_messages.html' %}
+        <div class="d-flex justify-content-between">
+            <!-- <a class="btn btn-primary" href="#">Edit user</a> -->
+            <a class="btn btn-primary" href="{% url 'delete_user' pk=user_info.id %}">Delete user</a>
+        </div>
+    </div>
+
+    <div class="card-body">
+        <div class="media">
+            <div class="media-body">
+                <p>{{ user_info.first_name }} {{user_info.last_name }} was born in {{ user_info.date_of_birth }}</p>
+                <p>
+                    Username: {{ user_info.username }}
+                    <br>
+                    Email: {{ user_info.email }}
+                </p>
+                <p>{{ user_info.first_name }} {{ user_info.last_name }} has:</p>
+                <ol>
+                    <li>{{ user_info.personal_acc_hcs }} in the personal account for the housing and communal services</li>
+                    <li>{{ user_info.personal_acc_landline_phone }} in the personal account for the landline phone</li>
+                    <li>{{ user_info.personal_acc_distance_phone }} in the personal account for the long-distance phone</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer text-muted">
+        {{ user.name }} created at {{ user.created_at|date:"Y-m-d H:i"}}
+        <br>
+        time passed: {{ user.created_at|timesince }}
+    </div>
+</div>
+
+{% endblock %}

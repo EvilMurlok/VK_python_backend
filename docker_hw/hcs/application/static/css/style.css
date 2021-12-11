@@ -1,0 +1,30 @@
+body {
+    background-color: #fff3cd;
+}
+a {
+    text-decoration: none;
+}
+.errorlist{
+    color: #ec1529;
+}
+.success{
+    color: #10b150;
+}
+
+
+
+
+.register,
+.register:hover{
+    color: whitesmoke;
+}
+
+.register{
+    margin: 0 10px;
+}
+
+.navbar-nav {
+    display:flex;
+    width:100%;
+}
+

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block sidebar %}
+{% include 'users/left_panel.html' %}
+{% endblock %}
+
+{% block content %}
+
+{% include 'inc/_messages.html' %}
+
+{% for user in users %}
+<div class="card mb-3">
+    <div class="card-body">
+        <div class="media">
+            <div class="media-body">
+                <p>{{ user.first_name }} {{user.last_name }} was born in {{ user.date_of_birth }}</p>
+                {{ user.first_name }} {{user.last_name }} has created account at {{ user.created_at|date:"Y-m-d H:i"}}
+                <br>
+                <a href="{{ user.get_absolute_url }}" class="btn btn-primary mt-2">Show details</a>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer text-muted">
+        time passed: {{ user.created_at|timesince }}
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}
