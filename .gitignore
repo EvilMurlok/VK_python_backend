@@ -190,6 +190,9 @@ celerybeat-schedule.db
 admin/
 debug_toolbar/
 
+# environment files
+.env.dev
+
 ### logs ###
 *.log
 
